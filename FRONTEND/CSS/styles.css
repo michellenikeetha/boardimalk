@@ -1,0 +1,73 @@
+/* General Colors and Styles */
+:root {
+    --primary-color: #000;
+    --secondary-color: #fff;
+    --accent-color: #f4f4f4;
+    --text-color: #333;
+    --text-secondary-color: #666;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--secondary-color);
+    border-bottom: 1px solid #ddd;
+}
+
+nav a {
+    margin: 0 15px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+/* Footer */
+footer {
+    background-color: var(--secondary-color);
+    padding: 50px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+footer a {
+    color: var(--text-secondary-color);
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+}
