@@ -2,10 +2,10 @@
 require_once '../../BACKEND/db_connect.php';
 require_once '../../BACKEND/session.php';
 
-if (isLoggedIn()) {
-    header("Location: dashboard.php");
-    exit();
-}
+// if (isLoggedIn()) {
+//     header("Location: dashboard.php");
+//     exit();
+// }
 
 $error = '';
 
@@ -35,8 +35,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($stmt->execute([$username, $email, $hashed_password, $role])) {
                 $_SESSION['user_id'] = $pdo->lastInsertId();
                 $_SESSION['username'] = $username;
+                $_SESSION['email'] = $email;
                 $_SESSION['role'] = $role;
-                header("Location: dashboard.php");
+                
+                // Redirect based on role
+                switch($role) {
+                    case 'renter':
+                        header("Location: renter_dashboard.php");
+                        break;
+                    case 'customer':
+                        header("Location: customer_dashboard.php");
+                        break;
+                    case 'admin':
+                        header("Location: admin_dashboard.php");
+                        break;
+                }
                 exit();
             } else {
                 $error = "Registration failed. Please try again.";

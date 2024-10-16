@@ -2,32 +2,59 @@
 require_once '../../BACKEND/db_connect.php';
 require_once '../../BACKEND/session.php';
 
-if (isLoggedIn()) {
-    header("Location: dashboard.php");
-    exit();
-}
+// if (isLoggedIn()) {
+//     // Redirect based on role
+//     switch($_SESSION['role']) {
+//         case 'renter':
+//             header("Location: renter_dashboard.php");
+//             break;
+//         case 'customer':
+//             header("Location: customer_dashboard.php");
+//             break;
+//         case 'admin':
+//             header("Location: admin_dashboard.php");
+//             break;
+//         default:
+//             header("Location: login.php");
+//     }
+//     exit();
+// }
 
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if (empty($username) || empty($password)) {
-        $error = "Both username and password are required.";
+    if (empty($email) || empty($password)) {
+        $error = "Both email and password are required.";
     } else {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->execute([$username]);
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
+            $_SESSION['username'] = $user['username']; // Store username in session
             $_SESSION['role'] = $user['role'];
-            header("Location: dashboard.php");
+            
+            // Redirect based on role
+            switch($user['role']) {
+                case 'renter':
+                    header("Location: renter_dashboard.php");
+                    break;
+                case 'customer':
+                    header("Location: customer_dashboard.php");
+                    break;
+                case 'admin':
+                    header("Location: admin_dashboard.php");
+                    break;
+                default:
+                    header("Location: login.php");
+            }
             exit();
         } else {
-            $error = "Invalid username or password.";
+            $error = "Invalid email or password.";
         }
     }
 }
@@ -50,8 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php endif; ?>
         <form action="login.php" method="post" class="login-form">
             <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
@@ -63,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
         <div class="login-links">
             <p>Don't have an account? <a href="register.php">Register here</a></p>
+            <p><a href="forgot_password.php">Forgot Password?</a></p>
         </div>
     </div>
 
