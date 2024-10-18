@@ -2,11 +2,6 @@
 require_once '../../BACKEND/db_connect.php';
 require_once '../../BACKEND/session.php';
 
-// if (isLoggedIn()) {
-//     header("Location: dashboard.php");
-//     exit();
-// }
-
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
