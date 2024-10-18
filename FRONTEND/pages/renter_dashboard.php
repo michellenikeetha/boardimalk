@@ -78,10 +78,10 @@ $property_count = $result['property_count']; // Get the property count
                     <h3>Active Bookings</h3>
                     <p>3</p>
                 </div> -->
-                <div class="stat-card">
+                <!-- <div class="stat-card">
                     <h3>Messages</h3>
                     <p>12</p>
-                </div>
+                </div> -->
             </div>
             
             <div>
