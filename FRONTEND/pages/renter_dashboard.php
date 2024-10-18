@@ -9,6 +9,7 @@ if (!isLoggedIn() || $_SESSION['role'] !== 'renter') {
 }
 
 $username = $_SESSION['username'];
+$renter_id = $_SESSION['user_id'];
 
 // Check for success or error messages
 $success_message = isset($_SESSION['success_message']) ? $_SESSION['success_message'] : '';
@@ -17,6 +18,14 @@ $error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] 
 // Clear session messages after displaying
 unset($_SESSION['success_message']);
 unset($_SESSION['error_message']);
+
+// Query to get the number of properties posted by the renter
+$query = "SELECT COUNT(*) AS property_count FROM rentals WHERE renter_id = :renter_id";
+$stmt = $pdo->prepare($query);
+$stmt->bindValue(':renter_id', $renter_id);
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$property_count = $result['property_count']; // Get the property count
 
 ?>
 
@@ -59,10 +68,10 @@ unset($_SESSION['error_message']);
             <?php endif; ?>
 
             <div class="dashboard-stats">
-                <a href="listings.php">
+                <a href="renter_listings.php">
                     <div class="stat-card">
                         <h3>Total Properties</h3>
-                        <p>5</p>
+                        <p><?php echo $property_count; ?></p>
                     </div>
                 </a>
                 <!-- <div class="stat-card">

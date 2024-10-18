@@ -5,6 +5,7 @@
     display: flex;
     min-height: 100vh;
     background-color: var(--accent-color);
+    margin: 0 50px;
 }
 
 /* Navigation Bar */
