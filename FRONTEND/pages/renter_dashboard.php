@@ -144,8 +144,11 @@ $username = $_SESSION['username'];
                     <label for="contact_whatsapp">WhatsApp Contact:</label>
                     <input type="text" name="contact_whatsapp" id="contact_whatsapp" required>
 
-                    <label for="images">Upload Photos (minimum 5):</label>
-                    <input type="file" name="images[]" id="images" multiple required>
+                    <div>
+                        <label for="images">Upload Photos (minimum 5):</label>
+                        <input type="file" name="images[]" id="images" multiple onchange="validateImages(this)" required>
+                        <div id="imageValidationMessage" class="validation-message"></div>
+                    </div>
 
                     <label for="description">Description:</label>
                     <textarea name="description" id="description" placeholder="Enter extra listing details"></textarea>
@@ -154,37 +157,39 @@ $username = $_SESSION['username'];
                 </form>
             </div>
 
-            <div>
-                <h2>My Listings</h2>
-                <div class="listings">
-                    <?php
-                    $query = "SELECT * FROM rentals WHERE renter_id = ?";
-                    $stmt = $conn->prepare($query);
-                    $stmt->bind_param('i', $renter_id);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
-
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<div class="listing">';
-                            echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
-                            echo '<p>' . htmlspecialchars($row['description']) . '</p>';
-                            echo '<p>Location: ' . htmlspecialchars($row['location']) . '</p>';
-                            echo '<p>Price: ' . htmlspecialchars($row['price']) . '</p>';
-                            echo '<p>WhatsApp: ' . htmlspecialchars($row['contact_whatsapp']) . '</p>';
-                            echo '<img src="' . htmlspecialchars(explode(',', $row['images'])[0]) . '" alt="Listing Image" width="100" height="100">';
-                            echo '<a href="edit_listing.php?id=' . $row['id'] . '">Edit</a> | ';
-                            echo '<a href="../../BACKEND/delete_listing.php?id=' . $row['id'] . '">Remove</a>';
-                            echo '</div>';
-                        }
-                    } else {
-                        echo '<p>No listings found.</p>';
-                    }
-                    ?>
-                </div>
-            </div>
-
         </div>
     </div>
+
+    <script>
+        function validateImages(input) {
+            const validationMessage = document.getElementById('imageValidationMessage');
+            const submitButton = document.querySelector('form button[type="submit"]');
+            
+            if (input.files.length < 5) {
+                validationMessage.textContent = 'Please upload at least 5 photos.';
+                validationMessage.className = 'validation-message show';
+                input.classList.add('invalid-input');
+                submitButton.disabled = true;
+            } else {
+                validationMessage.className = 'validation-message';
+                input.classList.remove('invalid-input');
+                submitButton.disabled = false;
+            }
+        }
+
+        // Add form submission validation
+        document.querySelector('form').addEventListener('submit', function(event) {
+            const imageInput = document.getElementById('images');
+            if (imageInput.files.length < 5) {
+                event.preventDefault();
+                const validationMessage = document.getElementById('imageValidationMessage');
+                validationMessage.textContent = 'Please upload at least 5 photos.';
+                validationMessage.className = 'validation-message show';
+                imageInput.classList.add('invalid-input');
+                imageInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    </script>
+
 </body>
 </html>

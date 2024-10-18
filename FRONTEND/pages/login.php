@@ -2,24 +2,6 @@
 require_once '../../BACKEND/db_connect.php';
 require_once '../../BACKEND/session.php';
 
-// if (isLoggedIn()) {
-//     // Redirect based on role
-//     switch($_SESSION['role']) {
-//         case 'renter':
-//             header("Location: renter_dashboard.php");
-//             break;
-//         case 'customer':
-//             header("Location: customer_dashboard.php");
-//             break;
-//         case 'admin':
-//             header("Location: admin_dashboard.php");
-//             break;
-//         default:
-//             header("Location: login.php");
-//     }
-//     exit();
-// }
-
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
