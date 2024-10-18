@@ -28,7 +28,7 @@ $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>My Listings - බෝඩිම.LK</title>
     <link rel="stylesheet" href="../CSS/styles.css">
     <link rel="stylesheet" href="../CSS/renter_dashboard.css">
-    <link rel="stylesheet" href="../CSS/renter_listings.css"> <!-- Add a custom CSS file for listing cards and modal -->
+    <link rel="stylesheet" href="../CSS/renter_listings.css"> 
 </head>
 <body>
     <nav class="dashboard-nav">
@@ -61,6 +61,15 @@ $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <h3><?php echo htmlspecialchars($property['title']); ?></h3>
                             <p><?php echo htmlspecialchars($property['city']); ?>, <?php echo htmlspecialchars($property['district']); ?></p>
                             <p>Rent: Rs.<?php echo number_format($property['price'], 2); ?></p>
+
+                            <!-- Edit and Toggle Active/Inactive Buttons -->
+                            <div class="property-actions">
+                                <!-- <button class="edit-btn" onclick="window.location.href='edit_property.php?id=<?php echo $property['id']; ?>'">Edit</button> -->
+
+                                <button class="toggle-status-btn" onclick="toggleStatus(<?php echo $property['id']; ?>, <?php echo $property['is_active'] ? 1 : 0; ?>)">
+                                    <?php echo $property['is_active'] ? 'Mark as Inactive' : 'Mark as Active'; ?>
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Modal for Property Details -->
@@ -128,6 +137,25 @@ $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
             });
         }
+
+        // Function to toggle the status between active and inactive
+        function toggleStatus(propertyId, isActive) {
+            let action = isActive ? 'inactive' : 'active';
+            if (confirm(`Are you sure you want to mark this property as ${action}?`)) {
+                // Send an AJAX request to toggle the 'is_active' status
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "../../BACKEND/toggle_active_status.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        alert("Property status updated.");
+                        window.location.reload();
+                    }
+                };
+                xhr.send("property_id=" + propertyId + "&is_active=" + isActive);
+            }
+        }
+
     </script>
 </body>
 </html>
