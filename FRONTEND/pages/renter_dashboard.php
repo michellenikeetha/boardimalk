@@ -58,20 +58,26 @@ $property_count = $result['property_count']; // Get the property count
         </div> -->
 
         <div class="main-content">
-            <h2>Renter Dashboard</h2>
+            <div class="dashboard-header">
+                <h2>Renter Dashboard</h2>
 
-            <!-- Display Success or Error Messages -->
-            <?php if ($success_message): ?>
-                <div class="success-message"><?php echo $success_message; ?></div>
-            <?php elseif ($error_message): ?>
-                <div class="error-message"><?php echo $error_message; ?></div>
-            <?php endif; ?>
+                <!-- Display Success or Error Messages -->
+                <?php if ($success_message): ?>
+                    <div class="success-message"><?php echo $success_message; ?></div>
+                <?php elseif ($error_message): ?>
+                    <div class="error-message"><?php echo $error_message; ?></div>
+                <?php endif; ?>
+
+            </div>
 
             <div class="dashboard-stats">
-                <a href="renter_listings.php">
+                <a href="renter_listings.php" class="stat-card-link">
                     <div class="stat-card">
-                        <h3>Total Properties</h3>
-                        <p><?php echo $property_count; ?></p>
+                        <div class="stat-icon">🏠</div>
+                        <div class="stat-info">
+                            <h3>Total Properties</h3>
+                            <p><?php echo $property_count; ?></p>
+                        </div>
                     </div>
                 </a>
                 <!-- <div class="stat-card">
@@ -84,104 +90,144 @@ $property_count = $result['property_count']; // Get the property count
                 </div> -->
             </div>
             
-            <div>
-                <h2>Post New Listing</h2>
-                <form action="../../BACKEND/post_listing.php" method="POST" enctype="multipart/form-data">
-                    <label for="title">Title:</label>
-                    <input type="text" name="title" id="title" required>
+            <div class="form-container">
 
-                    <label for="full_address">Full Address:</label>
-                    <input type="text" name="full_address" id="full_address" required>
+                <div class="form-header">
+                    <h2>Post New Listing</h2>
+                    <!-- <p>Fill in the details below to list your property</p> -->
+                </div>
 
-                    <label for="city">City:</label>
-                    <input type="text" name="city" id="city" required>
+                <form action="../../BACKEND/post_listing.php" method="POST" enctype="multipart/form-data" class="listing-form">
+                    <div class="form-grid">
 
-                    <label for="district">District:</label>
-                    <select name="district" id="district" required>
-                        <option value="">Select District</option>
-                        <option value="Ampara">Ampara</option>
-                        <option value="Anuradhapura">Anuradhapura</option>
-                        <option value="Badulla">Badulla</option>
-                        <option value="Batticaloa">Batticaloa</option>
-                        <option value="Colombo">Colombo</option>
-                        <option value="Galle">Galle</option>
-                        <option value="Gampaha">Gampaha</option>
-                        <option value="Hambantota">Hambantota</option>
-                        <option value="Jaffna">Jaffna</option>
-                        <option value="Kalutara">Kalutara</option>
-                        <option value="Kandy">Kandy</option>
-                        <option value="Kegalle">Kegalle</option>
-                        <option value="Kilinochchi">Kilinochchi</option>
-                        <option value="Kurunegala">Kurunegala</option>
-                        <option value="Mannar">Mannar</option>
-                        <option value="Matale">Matale</option>
-                        <option value="Matara">Matara</option>
-                        <option value="Moneragala">Moneragala</option>
-                        <option value="Mullaitivu">Mullaitivu</option>
-                        <option value="Nuwara Eliya">Nuwara Eliya</option>
-                        <option value="Polonnaruwa">Polonnaruwa</option>
-                        <option value="Puttalam">Puttalam</option>
-                        <option value="Ratnapura">Ratnapura</option>
-                        <option value="Trincomalee">Trincomalee</option>
-                        <option value="Vavuniya">Vavuniya</option>
-                    </select>
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" name="title" id="title" required placeholder="Enter property title">
+                            </div>
 
-                    <label for="price">Monthly Rent:</label>
-                    <input type="number" step="0.01" name="price" id="price" min="0" required>
+                            <div class="form-group full-width">
+                                <label for="full_address">Full Address</label>
+                                <input type="text" name="full_address" id="full_address" required placeholder="Enter complete address">
+                            </div>
 
-                    <label for="rooms">No. of Rooms:</label>
-                    <input type="number" name="rooms" id="rooms" min="0" required>
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" name="city" id="city" required placeholder="Enter city">
+                            </div>
 
-                    <label for="bathrooms">No. of Bathrooms:</label>
-                    <input type="number" name="bathrooms" id="bathrooms" min="0" required>
+                            <div class="form-group">
+                                <label for="district">District</label>
+                                <select name="district" id="district" required>
+                                    <option value="">Select District</option>
+                                    <option value="Ampara">Ampara</option>
+                                    <option value="Anuradhapura">Anuradhapura</option>
+                                    <option value="Badulla">Badulla</option>
+                                    <option value="Batticaloa">Batticaloa</option>
+                                    <option value="Colombo">Colombo</option>
+                                    <option value="Galle">Galle</option>
+                                    <option value="Gampaha">Gampaha</option>
+                                    <option value="Hambantota">Hambantota</option>
+                                    <option value="Jaffna">Jaffna</option>
+                                    <option value="Kalutara">Kalutara</option>
+                                    <option value="Kandy">Kandy</option>
+                                    <option value="Kegalle">Kegalle</option>
+                                    <option value="Kilinochchi">Kilinochchi</option>
+                                    <option value="Kurunegala">Kurunegala</option>
+                                    <option value="Mannar">Mannar</option>
+                                    <option value="Matale">Matale</option>
+                                    <option value="Matara">Matara</option>
+                                    <option value="Moneragala">Moneragala</option>
+                                    <option value="Mullaitivu">Mullaitivu</option>
+                                    <option value="Nuwara Eliya">Nuwara Eliya</option>
+                                    <option value="Polonnaruwa">Polonnaruwa</option>
+                                    <option value="Puttalam">Puttalam</option>
+                                    <option value="Ratnapura">Ratnapura</option>
+                                    <option value="Trincomalee">Trincomalee</option>
+                                    <option value="Vavuniya">Vavuniya</option>
+                                </select>
+                            </div>
 
-                    <div class="checkbox-grid">
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="is_furnished" id="is_furnished">
-                            <label for="is_furnished">Is Furnished?</label>
+                            <div class="form-group">
+                                <label for="price">Monthly Rent (LKR)</label>
+                                <input type="number" step="0.01" name="price" id="price" min="0" required placeholder="Enter monthly rent">
+                            </div>
+
+                            <div class="form-section">
+                                <h3>Property Details</h3>
+                                <div class="details-grid">
+                                    <div class="form-group">
+                                        <label for="rooms">Rooms</label>
+                                        <input type="number" name="rooms" id="rooms" min="0" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="bathrooms">Bathrooms</label>
+                                        <input type="number" name="bathrooms" id="bathrooms" min="0" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section full-width">
+                                <h3>Amenities</h3>
+                                <div class="checkbox-grid">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" name="is_furnished" id="is_furnished">
+                                        <label for="is_furnished">Is Furnished?</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" name="has_garden" id="has_garden">
+                                        <label for="has_garden">Has Garden?</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" name="has_kitchen" id="has_kitchen">
+                                        <label for="has_kitchen">Has Kitchen?</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" name="is_air_conditioned" id="is_air_conditioned">
+                                        <label for="is_air_conditioned">Air Conditioned?</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" name="separate_utility_bills" id="separate_utility_bills">
+                                        <label for="separate_utility_bills">Separate Utility Bills?</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" name="has_parking" id="has_parking">
+                                        <label for="has_parking">Has Parking?</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" name="has_security_cameras" id="has_security_cameras">
+                                        <label for="has_security_cameras">Has Security Cameras?</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="proximity_to_road">Distance to Main Road</label>
+                                <input type="text" name="proximity_to_road" id="proximity_to_road" required placeholder="E.g., 100m from main road">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact_whatsapp">WhatsApp Contact</label>
+                                <input type="text" name="contact_whatsapp" id="contact_whatsapp" required placeholder="Enter WhatsApp number">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="images">Property Photos (minimum 5)</label>
+                                    <input type="file" name="images[]" id="images" multiple onchange="validateImages(this)" required>
+                                <div id="imageValidationMessage" class="validation-message"></div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="description">Property Description</label>
+                                <textarea name="description" id="description" placeholder="Describe your property in detail"></textarea>
+                            </div>
                         </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="has_garden" id="has_garden">
-                            <label for="has_garden">Has Garden?</label>
+
+                        <div class="form-actions">
+                            <button type="submit">Post Listing</button>
                         </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="has_kitchen" id="has_kitchen">
-                            <label for="has_kitchen">Has Kitchen?</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="is_air_conditioned" id="is_air_conditioned">
-                            <label for="is_air_conditioned">Air Conditioned?</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="separate_utility_bills" id="separate_utility_bills">
-                            <label for="separate_utility_bills">Separate Utility Bills?</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="has_parking" id="has_parking">
-                            <label for="has_parking">Has Parking?</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="has_security_cameras" id="has_security_cameras">
-                            <label for="has_security_cameras">Has Security Cameras?</label>
-                        </div>
+
                     </div>
-
-                    <label for="proximity_to_road">Proximity to Main Road:</label>
-                    <input type="text" name="proximity_to_road" id="proximity_to_road" required>
-
-                    <label for="contact_whatsapp">WhatsApp Contact:</label>
-                    <input type="text" name="contact_whatsapp" id="contact_whatsapp" required>
-
-                    <div>
-                        <label for="images">Upload Photos (minimum 5):</label>
-                        <input type="file" name="images[]" id="images" multiple onchange="validateImages(this)" required>
-                        <div id="imageValidationMessage" class="validation-message"></div>
-                    </div>
-
-                    <label for="description">Description:</label>
-                    <textarea name="description" id="description" placeholder="Enter extra listing details"></textarea>
-
-                    <button type="submit">Post Listing</button>
                 </form>
             </div>
 
