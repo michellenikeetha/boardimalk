@@ -412,3 +412,79 @@ input[type="file"] {
 .invalid-input:focus {
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
 }
+
+/* Message Containers */
+.success-message,
+.error-message {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0 2rem;
+    border-radius: 8px;
+    position: relative;
+    animation: slideIn 0.4s ease-out;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Success Message */
+.success-message {
+    background-color: #d4edda;
+    border-left: 5px solid #28a745;
+    color: #155724;
+}
+
+/* Error Message */
+.error-message {
+    background-color: #f8d7da;
+    border-left: 5px solid #dc3545;
+    color: #721c24;
+}
+
+/* Message Icons */
+.success-message::before,
+.error-message::before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin-right: 1rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.success-message::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23155724'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+}
+
+.error-message::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23721c24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
+}
+
+/* Animation */
+@keyframes slideIn {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Hover Effect */
+.success-message:hover,
+.error-message:hover {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .success-message,
+    .error-message {
+        padding: 0.75rem 1rem;
+        margin: 0.75rem 0 1.5rem;
+    }
+}

@@ -9,6 +9,15 @@ if (!isLoggedIn() || $_SESSION['role'] !== 'renter') {
 }
 
 $username = $_SESSION['username'];
+
+// Check for success or error messages
+$success_message = isset($_SESSION['success_message']) ? $_SESSION['success_message'] : '';
+$error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : '';
+
+// Clear session messages after displaying
+unset($_SESSION['success_message']);
+unset($_SESSION['error_message']);
+
 ?>
 
 <!DOCTYPE html>
@@ -30,26 +39,36 @@ $username = $_SESSION['username'];
     </nav>
 
     <div class="dashboard-container">
-        <div class="sidebar">
+        <!-- <div class="sidebar">
             <ul>
                 <li><a href="#properties">My Properties</a></li>
                 <li><a href="#bookings">Bookings</a></li>
                 <li><a href="#messages">Messages</a></li>
                 <li><a href="#profile">Profile</a></li>
             </ul>
-        </div>
+        </div> -->
 
         <div class="main-content">
             <h2>Renter Dashboard</h2>
+
+            <!-- Display Success or Error Messages -->
+            <?php if ($success_message): ?>
+                <div class="success-message"><?php echo $success_message; ?></div>
+            <?php elseif ($error_message): ?>
+                <div class="error-message"><?php echo $error_message; ?></div>
+            <?php endif; ?>
+
             <div class="dashboard-stats">
-                <div class="stat-card">
-                    <h3>Total Properties</h3>
-                    <p>5</p>
-                </div>
-                <div class="stat-card">
+                <a href="listings.php">
+                    <div class="stat-card">
+                        <h3>Total Properties</h3>
+                        <p>5</p>
+                    </div>
+                </a>
+                <!-- <div class="stat-card">
                     <h3>Active Bookings</h3>
                     <p>3</p>
-                </div>
+                </div> -->
                 <div class="stat-card">
                     <h3>Messages</h3>
                     <p>12</p>
