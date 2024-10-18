@@ -15,6 +15,7 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     position: relative;
+    cursor: pointer;
 }
 
 .property-card:hover {
@@ -42,6 +43,67 @@
 .property-card p {
     margin: 0.5rem 1rem;
     color: var(--text-secondary-color);
+}
+
+/* Property Actions and Status Toggle Button */
+.property-actions {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.toggle-status-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: var(--primary-color);
+    color: white;
+    width: 100%;
+}
+
+.toggle-status-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-activate {
+    background-color: #28a745 !important;  /* Green for activating */
+}
+
+.btn-deactivate {
+    background-color: #dc3545 !important;  /* Red for deactivating */
+}
+
+.toggle-status-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0.9;
+}
+
+/* Stop event propagation */
+.toggle-status-btn {
+    pointer-events: auto;
+}
+
+.property-card {
+    pointer-events: none;
+}
+
+.property-card > * {
+    pointer-events: auto;
+}
+
+/* Section Headers */
+h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin: 2rem 1.5rem 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary-color);
 }
 
 /* Modal Styles */
@@ -104,7 +166,7 @@
     background-color: #e07c00;
 }
 
-/* Main Image */
+/* Main Image and Carousel */
 .main-image {
     width: 100%;
     height: 400px;
@@ -114,7 +176,6 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Image Carousel */
 .image-carousel {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -172,6 +233,16 @@
     background: #e07c00;
 }
 
+/* Empty State Messaging */
+.main-content > p {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary-color);
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    margin: 1rem 1.5rem;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -216,6 +287,16 @@
 
     .modal-content p strong {
         min-width: 120px;
+    }
+
+    .toggle-status-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    h3 {
+        margin: 1.5rem 1rem 0.75rem;
+        font-size: 1.3rem;
     }
 }
 
