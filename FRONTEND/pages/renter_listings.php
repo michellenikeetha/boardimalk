@@ -68,6 +68,17 @@ $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div class="modal-content">
                                 <span class="close-btn" onclick="closeModal(<?php echo $property['id']; ?>)">&times;</span>
                                 <h2><?php echo htmlspecialchars($property['title']); ?></h2>
+
+                                <!-- Display main image -->
+                                <img id="main-image-<?php echo $property['id']; ?>" class="main-image" src="../<?php echo $images[0]; ?>" alt="Property Image">
+                                
+                                <!-- Thumbnail carousel for all images -->
+                                <div class="image-carousel">
+                                    <?php foreach ($images as $image): ?>
+                                        <img src="../<?php echo $image; ?>" onclick="changeMainImage('<?php echo $property['id']; ?>', '../<?php echo $image; ?>')" alt="Property Image">
+                                    <?php endforeach; ?>
+                                </div>
+
                                 <p><strong>Address:</strong> <?php echo htmlspecialchars($property['full_address']); ?></p>
                                 <p><strong>City:</strong> <?php echo htmlspecialchars($property['city']); ?></p>
                                 <p><strong>District:</strong> <?php echo htmlspecialchars($property['district']); ?></p>
@@ -101,6 +112,11 @@ $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
         // Function to close the modal
         function closeModal(id) {
             document.getElementById('modal-' + id).style.display = 'none';
+        }
+
+        // Function to change the main image when a thumbnail is clicked
+        function changeMainImage(id, imageUrl) {
+            document.getElementById('main-image-' + id).src = imageUrl;
         }
 
         // Close the modal when the user clicks outside of the modal content
