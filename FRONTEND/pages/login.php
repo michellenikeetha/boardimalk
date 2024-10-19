@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     header("Location: customer_dashboard.php");
                     break;
                 case 'admin':
-                    header("Location: admin_dashboard.php");
+                    header("Location: admin_dashboard.php"); //admin, admin123
                     break;
                 default:
                     header("Location: login.php");
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
         <div class="login-links">
             <p>Don't have an account? <a href="register.php">Register here</a></p>
-            <p><a href="forgot_password.php">Forgot Password?</a></p>
+            <!-- <p><a href="forgot_password.php">Forgot Password?</a></p> -->
         </div>
     </div>
 
