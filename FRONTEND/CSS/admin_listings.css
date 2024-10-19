@@ -92,14 +92,13 @@
     transition: var(--transition);
 }
 
-/* Styling for removed properties */
-.property-table tbody tr:has(td:nth-child(5):contains('Removed')) {
+/* Row styling */
+.property-table .removed-property {
     background-color: rgba(220, 53, 69, 0.1);
     color: var(--text-secondary-color);
 }
 
-/* Styling for active properties */
-.property-table tbody tr:has(td:nth-child(5):contains('Not Removed')) {
+.property-table .active-property {
     background-color: rgba(40, 167, 69, 0.1);
 }
 
@@ -117,14 +116,12 @@
     transition: var(--transition);
 }
 
-/* Style for "Mark as Removed" button */
-.property-table tr:has(td:nth-child(5):contains('Not Removed')) button {
+.property-table .remove-button {
     background-color: var(--error-color);
     color: var(--white-color);
 }
 
-/* Style for "Mark as Not Removed" button */
-.property-table tr:has(td:nth-child(5):contains('Removed')) button {
+.property-table .restore-button {
     background-color: var(--success-color);
     color: var(--white-color);
 }

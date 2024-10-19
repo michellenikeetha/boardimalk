@@ -54,7 +54,7 @@ $properties = $stmt_properties->fetchAll(PDO::FETCH_ASSOC);
                     </thead>
                     <tbody>
                         <?php foreach ($properties as $property): ?>
-                        <tr onclick="openModal(<?php echo $property['id']; ?>)">
+                        <tr onclick="openModal(<?php echo $property['id']; ?>)" class="<?php echo $property['removed_by_admin'] ? 'removed-property' : 'active-property'; ?>" >
                             <td><?php echo htmlspecialchars($property['title']); ?></td>
                             <td><?php echo htmlspecialchars($property['renter_name']); ?></td>
                             <td><?php echo htmlspecialchars($property['city']); ?></td>
@@ -63,7 +63,7 @@ $properties = $stmt_properties->fetchAll(PDO::FETCH_ASSOC);
                                 <?php echo $property['removed_by_admin'] ? 'Removed' : 'Not Removed'; ?>
                             </td>
                             <td>
-                                <button onclick="event.stopPropagation(); toggleRemovalStatus(<?php echo $property['id']; ?>, <?php echo $property['removed_by_admin'] ? 1 : 0; ?>)">
+                                <button onclick="event.stopPropagation(); toggleRemovalStatus(<?php echo $property['id']; ?>, <?php echo $property['removed_by_admin'] ? 1 : 0; ?>)"  class="<?php echo $property['removed_by_admin'] ? 'restore-button' : 'remove-button'; ?>" >
                                     <?php echo $property['removed_by_admin'] ? 'Mark as Not Removed' : 'Mark as Removed'; ?>
                                 </button>
                             </td>
