@@ -9,6 +9,16 @@ if (!isLoggedIn() || $_SESSION['role'] !== 'admin') {
 }
 
 $username = $_SESSION['username'];
+
+// Query the total properties, landlords, and customers
+$stmt_properties = $pdo->query("SELECT COUNT(*) AS total_properties FROM rentals");
+$total_properties = $stmt_properties->fetchColumn();
+
+$stmt_landlords = $pdo->query("SELECT COUNT(*) AS total_landlords FROM users WHERE role = 'renter'");
+$total_landlords = $stmt_landlords->fetchColumn();
+
+$stmt_customers = $pdo->query("SELECT COUNT(*) AS total_customers FROM users WHERE role = 'customer'");
+$total_customers = $stmt_customers->fetchColumn();
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +28,7 @@ $username = $_SESSION['username'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - බෝඩිම.LK</title>
     <link rel="stylesheet" href="../CSS/styles.css">
-    <link rel="stylesheet" href="../CSS/dashboard.css">
+    <link rel="stylesheet" href="../CSS/admin_dashboard.css">
 </head>
 <body>
     <nav class="dashboard-nav">
@@ -30,32 +40,52 @@ $username = $_SESSION['username'];
     </nav>
 
     <div class="dashboard-container">
-        <div class="sidebar">
-            <ul>
-                <li><a href="#users">User Management</a></li>
-                <li><a href="#properties">Properties</a></li>
-                <li><a href="#reports">Reports</a></li>
-                <li><a href="#settings">Settings</a></li>
+        <div class="dashboard-header">
+            <h1>Admin Dashboard</h1>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <a href="admin_listings.php" class="stat-card-link">
+                    <div class="stat-number"><?php echo $total_properties; ?></div>
+                    <div class="stat-label">Total Properties</div>
+                </a>
+            </div>
+            <div class="stat-card">
+                <a href="admin_landlords.php" class="stat-card-link">
+                    <div class="stat-number"><?php echo $total_landlords; ?></div>
+                    <div class="stat-label">Total Landlords</div>
+                </a>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number"><?php echo $total_customers; ?></div>
+                <div class="stat-label">Total Registered Customers</div>
+            </div>
+        </div>
+
+        <div class="recent-activity">
+            <h2>Recent Activity</h2>
+            <ul class="activity-list">
+                <li class="activity-item">
+                    <span>New property listed: Beach View Apartment</span>
+                    <span>2 hours ago</span>
+                </li>
+                <li class="activity-item">
+                    <span>New user registration: John Doe</span>
+                    <span>5 hours ago</span>
+                </li>
+                <li class="activity-item">
+                    <span>Property booking: Mountain View Villa</span>
+                    <span>1 day ago</span>
+                </li>
             </ul>
         </div>
 
-        <div class="main-content">
-            <h2>Admin Dashboard</h2>
-            <div class="dashboard-stats">
-                <div class="stat-card">
-                    <h3>Total Users</h3>
-                    <p>150</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Total Properties</h3>
-                    <p>75</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Active Bookings</h3>
-                    <p>45</p>
-                </div>
-            </div>
-            <!-- Add more dashboard content here -->
+        <div class="quick-actions">
+            <a href="#" class="action-btn">Add New Property</a>
+            <a href="#" class="action-btn">Manage Users</a>
+            <a href="#" class="action-btn">View Reports</a>
+            <a href="#" class="action-btn">System Settings</a>
         </div>
     </div>
 </body>
