@@ -21,7 +21,7 @@ $landlords = $stmt_landlords->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Landlords - බෝඩිම.LK</title>
     <link rel="stylesheet" href="../CSS/styles.css">
-    <link rel="stylesheet" href="../CSS/admin_dashboard.css">
+    <link rel="stylesheet" href="../CSS/admin_landlords.css">
 </head>
 <body>
     <nav class="dashboard-nav">

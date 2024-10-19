@@ -52,10 +52,10 @@ $total_customers = $stmt_customers->fetchColumn();
                 </a>
             </div>
             <div class="stat-card">
-                <a href="admin_landlords.php" class="stat-card-link">
+                <!-- <a href="admin_landlords.php" class="stat-card-link"> -->
                     <div class="stat-number"><?php echo $total_landlords; ?></div>
                     <div class="stat-label">Total Landlords</div>
-                </a>
+                <!-- </a> -->
             </div>
             <div class="stat-card">
                 <div class="stat-number"><?php echo $total_customers; ?></div>

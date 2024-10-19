@@ -1,0 +1,404 @@
+/* Navigation Bar */
+.dashboard-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    box-shadow: var(--shadow-md);
+}
+
+.nav-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--white-color);
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-items span {
+    font-size: 1.1rem;
+}
+
+.logout-btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #e07c00;
+    color: var(--white-color);
+    transform: translateY(-2px);
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    padding: 2rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dashboard-container h2 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+/* Property Listings Table */
+.property-listings {
+    background-color: var(--white-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow-md);
+    overflow-x: auto;
+}
+
+.property-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    background-color: var(--white-color);
+}
+
+.property-table thead {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.property-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.property-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.property-table tbody tr {
+    transition: var(--transition);
+}
+
+/* Styling for removed properties */
+.property-table tbody tr:has(td:nth-child(5):contains('Removed')) {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--text-secondary-color);
+}
+
+/* Styling for active properties */
+.property-table tbody tr:has(td:nth-child(5):contains('Not Removed')) {
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.property-table tbody tr:hover {
+    background-color: var(--accent-color);
+}
+
+/* Action Buttons */
+.property-table button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+/* Style for "Mark as Removed" button */
+.property-table tr:has(td:nth-child(5):contains('Not Removed')) button {
+    background-color: var(--error-color);
+    color: var(--white-color);
+}
+
+/* Style for "Mark as Not Removed" button */
+.property-table tr:has(td:nth-child(5):contains('Removed')) button {
+    background-color: var(--success-color);
+    color: var(--white-color);
+}
+
+.property-table button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .property-table {
+        font-size: 0.9rem;
+    }
+    
+    .property-table button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1rem;
+    }
+    
+    .property-table th,
+    .property-table td {
+        padding: 0.75rem;
+    }
+    
+    .nav-items {
+        gap: 1rem;
+    }
+}
+
+/* Empty State */
+.property-listings p {
+    /* padding: 2rem; */
+    text-align: center;
+    color: var(--text-secondary-color);
+}
+
+/* Modal Base Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--white-color);
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    max-width: 800px;
+    width: 90%;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    color: var(--text-secondary-color);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.close-btn:hover {
+    color: var(--error-color);
+    background-color: rgba(220, 53, 69, 0.1);
+    transform: rotate(90deg);
+}
+
+/* Modal Header */
+.modal-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding-right: 2rem;
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+/* Main Image Display */
+.main-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Image Carousel */
+.image-carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+    margin-bottom: 1.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--accent-color);
+}
+
+.image-carousel::-webkit-scrollbar {
+    height: 8px;
+}
+
+.image-carousel::-webkit-scrollbar-track {
+    background: var(--accent-color);
+    border-radius: 4px;
+}
+
+.image-carousel::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 4px;
+}
+
+.image-carousel img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.image-carousel img:hover {
+    transform: translateY(-2px);
+    border-color: var(--secondary-color);
+}
+
+/* Property Details */
+.modal-content p {
+    margin: 0.8rem 0;
+    /* line-height: 1.6; */
+    color: var(--text-color);
+}
+
+.modal-content p strong {
+    color: var(--primary-color);
+    min-width: 120px;
+    display: inline-block;
+}
+
+/* Description Section */
+.modal-content p:last-child {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 1.5rem;
+        margin: 1rem auto;
+        width: 95%;
+    }
+
+    .main-image {
+        height: 300px;
+    }
+
+    .image-carousel img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .modal-content p strong {
+        min-width: 100px;
+    }
+}
+
+/* Loading State for Images */
+.main-image.loading,
+.image-carousel img.loading {
+    animation: imagePulse 1.5s infinite;
+    background-color: var(--accent-color);
+}
+
+@keyframes imagePulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Hover Cursor for Table Rows */
+.property-table tbody tr {
+    cursor: pointer;
+}
+
+/* Prevent Modal Close on Content Click */
+.modal-content {
+    cursor: default;
+}
+
+/* Additional Animation for Image Changes */
+.main-image {
+    transition: opacity 0.3s ease;
+}
+
+.main-image.changing {
+    opacity: 0;
+}
+
+/* Focus Styles for Accessibility */
+.close-btn:focus,
+.image-carousel img:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+    .modal {
+        position: relative;
+        background: none;
+        padding: 0;
+    }
+
+    .modal-content {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .close-btn,
+    .image-carousel {
+        display: none;
+    }
+
+    .main-image {
+        max-height: 300px;
+        margin-bottom: 2rem;
+    }
+}

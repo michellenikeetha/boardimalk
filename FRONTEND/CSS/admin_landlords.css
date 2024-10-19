@@ -1,0 +1,232 @@
+/* Navigation Bar */
+.dashboard-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    box-shadow: var(--shadow-md);
+}
+
+.nav-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--white-color);
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-items span {
+    font-size: 1.1rem;
+}
+
+.logout-btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #e07c00;
+    color: var(--white-color);
+    transform: translateY(-2px);
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    padding: 2rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dashboard-container h2 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+/* Landlord Listings */
+.landlord-listings {
+    background-color: var(--white-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow-md);
+    overflow-x: auto;
+}
+
+.landlord-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    background-color: var(--white-color);
+}
+
+.landlord-table thead {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.landlord-table th {
+    padding: 1.2rem;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.landlord-table td {
+    padding: 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.landlord-table tbody tr {
+    transition: var(--transition);
+}
+
+.landlord-table tbody tr:hover {
+    background-color: var(--accent-color);
+}
+
+/* Email Column */
+.landlord-table td:nth-child(2) {
+    color: var(--text-secondary-color);
+    font-family: monospace;
+    font-size: 0.95em;
+}
+
+/* Actions Column */
+.landlord-table td:last-child {
+    white-space: nowrap;
+}
+
+/* Action Links */
+.landlord-table a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.landlord-table a:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.landlord-table a:active {
+    transform: translateY(0);
+}
+
+/* View Properties Link Specific Style */
+.landlord-table a[href*="admin_landlord_properties.php"] {
+    background-color: #4CAF50;  /* Material Design green */
+    border: 1px solid #45a049;
+}
+
+.landlord-table a[href*="admin_landlord_properties.php"]:hover {
+    background-color: #45a049;
+}
+
+/* Empty State */
+.landlord-listings p {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary-color);
+    font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .landlord-table {
+        font-size: 0.9rem;
+    }
+    
+    .landlord-table th,
+    .landlord-table td {
+        padding: 1rem;
+    }
+    
+    .landlord-table a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1rem;
+    }
+    
+    .landlord-table th,
+    .landlord-table td {
+        padding: 0.75rem;
+    }
+    
+    .nav-items {
+        gap: 1rem;
+    }
+    
+    /* Stack email addresses on mobile */
+    .landlord-table td:nth-child(2) {
+        word-break: break-all;
+        white-space: normal;
+    }
+}
+
+/* Loading State (if needed) */
+.landlord-listings.loading {
+    position: relative;
+    min-height: 200px;
+}
+
+.landlord-listings.loading::after {
+    content: "Loading...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-secondary-color);
+}
+
+/* Additional Utility Classes */
+.text-truncate {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Status Badge (if needed for future use) */
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-badge.active {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+}
+
+.status-badge.inactive {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
