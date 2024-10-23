@@ -133,6 +133,11 @@ if (!$isGuest) {
                                 <p><strong>Security Cameras:</strong> <?php echo $property['has_security_cameras'] ? 'Yes' : 'No'; ?></p>
                                 <p><strong>Proximity to Road:</strong> <?php echo htmlspecialchars($property['proximity_to_road']); ?></p>
                                 <p><strong>WhatsApp Contact:</strong> <?php echo htmlspecialchars($property['contact_whatsapp']); ?></p>
+                                <p>
+                                    <!-- WhatsApp Contact Button -->
+                                    <a href="https://wa.me/<?php echo htmlspecialchars($property['contact_whatsapp']); ?>?text=Hello, I am interested in your property titled '<?php echo htmlspecialchars($property['title']); ?>'." 
+                                    target="_blank" class="whatsapp-btn">Contact via WhatsApp</a>
+                                </p>
                                 <p><strong>Description:</strong> <?php echo htmlspecialchars($property['description']); ?></p>
                             </div>
                         </div>
