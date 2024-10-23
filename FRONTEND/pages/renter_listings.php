@@ -168,6 +168,7 @@ $removed_properties = $stmt_removed->fetchAll(PDO::FETCH_ASSOC);
                                 <p><strong>Rooms:</strong> <?php echo htmlspecialchars($property['rooms']); ?></p>
                                 <p><strong>Bathrooms:</strong> <?php echo htmlspecialchars($property['bathrooms']); ?></p>
                                 <p><strong>Furnished:</strong> <?php echo $property['is_furnished'] ? 'Yes' : 'No'; ?></p>
+                                <p><strong>Separate Utility Bills:</strong> <?php echo $property['separate_utility_bills'] ? 'Yes' : 'No'; ?></p>
                                 <p><strong>Garden:</strong> <?php echo $property['has_garden'] ? 'Yes' : 'No'; ?></p>
                                 <p><strong>Kitchen:</strong> <?php echo $property['has_kitchen'] ? 'Yes' : 'No'; ?></p>
                                 <p><strong>Air Conditioned:</strong> <?php echo $property['is_air_conditioned'] ? 'Yes' : 'No'; ?></p>
@@ -225,6 +226,7 @@ $removed_properties = $stmt_removed->fetchAll(PDO::FETCH_ASSOC);
                                 <p><strong>Rooms:</strong> <?php echo htmlspecialchars($property['rooms']); ?></p>
                                 <p><strong>Bathrooms:</strong> <?php echo htmlspecialchars($property['bathrooms']); ?></p>
                                 <p><strong>Furnished:</strong> <?php echo $property['is_furnished'] ? 'Yes' : 'No'; ?></p>
+                                <p><strong>Separate Utility Bills:</strong> <?php echo $property['separate_utility_bills'] ? 'Yes' : 'No'; ?></p>
                                 <p><strong>Garden:</strong> <?php echo $property['has_garden'] ? 'Yes' : 'No'; ?></p>
                                 <p><strong>Kitchen:</strong> <?php echo $property['has_kitchen'] ? 'Yes' : 'No'; ?></p>
                                 <p><strong>Air Conditioned:</strong> <?php echo $property['is_air_conditioned'] ? 'Yes' : 'No'; ?></p>
