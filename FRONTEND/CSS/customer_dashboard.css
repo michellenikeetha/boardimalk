@@ -87,28 +87,49 @@
 
 /* Dashboard Stats */
 .dashboard-stats {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
     margin-bottom: 2rem;
+    padding: 0 1.5rem;
 }
 
 .stat-card {
-    background-color: white;
-    padding: 2rem;
+    background-color: var(--white-color);
+    padding: 1rem;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: var(--transition);
 }
 
-.stat-card h3 {
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+.stat-icon {
+    font-size: 2.5rem;
+    color: var(--secondary-color);
 }
 
-.stat-card p {
+.stat-info {
+    flex: 1;
+}
+
+.stat-info h3 {
     color: var(--text-secondary-color);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-info p {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* Property Cards Container */

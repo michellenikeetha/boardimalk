@@ -78,10 +78,15 @@ if (!$isGuest) {
             </div>
 
             <div class="dashboard-stats">
-                <div class="stat-card">
-                    <h3>Saved Properties</h3>
-                    <p><a href="<?php echo $isGuest ? 'login.php' : 'saved_properties.php'; ?>">View Saved Properties</a></p>
-                </div>
+                <a href="<?php echo $isGuest ? 'login.php' : 'saved_properties.php'; ?>" class="stat-card-link">
+                    <div class="stat-card">
+                        <div class="stat-icon">💾</div>
+                        <div class="stat-info">
+                            <h3>Saved Properties</h3>
+                            <p><?php echo $isGuest ? 'Login to view' : $savedProperties; ?></p>
+                        </div>
+                    </div>
+                </a>
             </div>
 
             <div class="notifications">
