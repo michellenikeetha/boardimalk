@@ -100,6 +100,7 @@ if (!$isGuest) {
                             <h3><?php echo htmlspecialchars($property['title']); ?></h3>
                             <p><?php echo htmlspecialchars($property['city']); ?>, <?php echo htmlspecialchars($property['district']); ?></p>
                             <p>Rent: Rs.<?php echo number_format($property['price'], 2); ?></p>
+                            <p>Rating: <?php echo $property['rating'] ? number_format($property['rating'], 2) : 'No ratings yet'; ?>/5</p>
                         </div>
 
                         <!-- Modal for Property Details -->
@@ -139,6 +140,52 @@ if (!$isGuest) {
                                     target="_blank" class="whatsapp-btn">Contact via WhatsApp</a>
                                 </p>
                                 <p><strong>Description:</strong> <?php echo htmlspecialchars($property['description']); ?></p>
+
+                                <?php if (!$isGuest && $role == 'customer'): ?>
+                                    <!-- Feedback form -->
+                                    <h3>Submit Feedback</h3>
+                                    <form action="../../BACKEND/submit_feedback.php" method="POST">
+                                        <input type="hidden" name="rental_id" value="<?php echo $property['id']; ?>">
+                                        <label for="rating">Rating (1-5):</label>
+                                        <select name="rating" id="rating" required>
+                                            <option value="">Select</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+
+                                        <label for="feedback">Feedback:</label>
+                                        <textarea name="feedback" id="feedback" rows="4" placeholder="Write your feedback here..." required></textarea>
+
+                                        <button type="submit">Submit Feedback</button>
+                                    </form>
+                                <?php else: ?>
+                                    <p><a href="login.php">Log in</a> to submit feedback and ratings.</p>
+                                <?php endif; ?>
+
+                                <!-- Display existing feedback and rating -->
+                                <h3>Ratings and Feedback</h3>
+                                <?php
+                                // Fetch feedback for this rental
+                                $query_feedback = "SELECT u.username, f.rating, f.feedback, f.created_at FROM feedback f JOIN users u ON f.customer_id = u.id WHERE f.rental_id = ?";
+                                $stmt_feedback = $pdo->prepare($query_feedback);
+                                $stmt_feedback->execute([$property['id']]);
+                                $feedbacks = $stmt_feedback->fetchAll(PDO::FETCH_ASSOC);
+
+                                if (empty($feedbacks)): ?>
+                                    <p>No feedback yet for this property.</p>
+                                <?php else: ?>
+                                    <?php foreach ($feedbacks as $fb): ?>
+                                        <div class="feedback-item">
+                                            <p><strong><?php echo htmlspecialchars($fb['username']); ?>:</strong> Rated <?php echo $fb['rating']; ?>/5</p>
+                                            <p><?php echo htmlspecialchars($fb['feedback']); ?></p>
+                                            <small>Submitted on <?php echo $fb['created_at']; ?></small>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+
                             </div>
                         </div>
                     <?php endforeach; ?>

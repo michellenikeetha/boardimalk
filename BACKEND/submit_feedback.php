@@ -2,49 +2,32 @@
 require_once 'db_connect.php';
 require_once 'session.php';
 
-// Ensure the user is logged in and is a customer
 if (!isLoggedIn() || $_SESSION['role'] !== 'customer') {
-    header("Location: ../FRONTEND/pages/login.php");
+    header('Location: ../FRONTEND/pages/login.php');
     exit();
 }
 
-// Check if the form was submitted
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $customer_id = $_SESSION['user_id'];
     $rental_id = $_POST['rental_id'];
     $rating = $_POST['rating'];
-    $feedback_text = $_POST['feedback'];
-    $customer_id = $_SESSION['user_id'];
-
-    // Validate inputs
-    if (empty($rental_id) || empty($rating) || empty($feedback_text)) {
-        echo "All fields are required.";
-        exit();
-    }
+    $feedback = $_POST['feedback'];
 
     try {
-        // Insert the feedback into the database
-        $query = "INSERT INTO feedback (customer_id, rental_id, rating, feedback) 
-                  VALUES (:customer_id, :rental_id, :rating, :feedback)";
-        $stmt = $pdo->prepare($query);
-        $stmt->bindValue(':customer_id', $customer_id);
-        $stmt->bindValue(':rental_id', $rental_id);
-        $stmt->bindValue(':rating', $rating);
-        $stmt->bindValue(':feedback', $feedback_text);
-        $stmt->execute();
+        // Insert feedback into the database
+        $stmt = $pdo->prepare("INSERT INTO feedback (customer_id, rental_id, rating, feedback) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$customer_id, $rental_id, $rating, $feedback]);
 
-        // Update the average rating in the rentals table
-        $updateRatingQuery = "UPDATE rentals r 
-                              SET r.rating = (SELECT AVG(f.rating) 
-                                              FROM feedback f 
-                                              WHERE f.rental_id = r.id) 
-                              WHERE r.id = :rental_id";
-        $updateStmt = $pdo->prepare($updateRatingQuery);
-        $updateStmt->bindValue(':rental_id', $rental_id);
-        $updateStmt->execute();
+        // Update the average rating for the property
+        $stmt_avg = $pdo->prepare("UPDATE rentals r 
+            SET r.rating = (SELECT AVG(f.rating) FROM feedback f WHERE f.rental_id = ?)
+            WHERE r.id = ?");
+        $stmt_avg->execute([$rental_id, $rental_id]);
 
-        echo "Feedback submitted successfully.";
+        header('Location: ../FRONTEND/pages/customer_dashboard.php?feedback_submitted=1');
     } catch (PDOException $e) {
-        echo "Error submitting feedback: " . $e->getMessage();
+        error_log("Database Error: " . $e->getMessage());
+        header('Location: customer_dashboard.php?error=1');
     }
 }
 ?>
