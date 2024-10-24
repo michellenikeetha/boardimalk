@@ -106,3 +106,10 @@ footer a:hover {
     color: var(--secondary-color);
 }
 
+.nav-brand a {
+    color: var(--white-color);
+}
+
+.nav-brand a:hover {
+    color: var(--secondary-color);
+}

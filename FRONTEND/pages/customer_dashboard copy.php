@@ -100,7 +100,7 @@ if (!$isGuest) {
 <body>
 
     <nav class="dashboard-nav">
-        <div class="nav-brand">බෝඩිම.LK</div>
+        <div class="nav-brand"><a href="index.html">බෝඩිම.LK</a></div>
         <div class="nav-items">
             <?php if ($isGuest): ?>
                 <span>Welcome, Guest!</span>

@@ -36,7 +36,7 @@ try {
 <body>
     <nav class="dashboard-nav">
         <div class="nav-brand">
-            <a href="index.php">බෝඩිම.LK</a>
+            <a href="index.php"><a href="index.html">බෝඩිම.LK</a></a>
         </div>
         <div class="nav-items">
             <span>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></span>

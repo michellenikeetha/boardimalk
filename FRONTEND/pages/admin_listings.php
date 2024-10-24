@@ -27,7 +27,7 @@ $properties = $stmt_properties->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <nav class="dashboard-nav">
-        <div class="nav-brand">බෝඩිම.LK</div>
+        <div class="nav-brand"><a href="index.html">බෝඩිම.LK</a></div>
         <div class="nav-items">
             <span>Welcome, Admin</span>
             <a href="../../BACKEND/logout.php" class="logout-btn">Logout</a>
