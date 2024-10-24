@@ -32,6 +32,15 @@ $stmt_removed->bindValue(':renter_id', $renter_id);
 $stmt_removed->execute();
 $removed_properties = $stmt_removed->fetchAll(PDO::FETCH_ASSOC);
 
+// Function to fetch feedback and rating for a property
+function fetchFeedbackAndRating($pdo, $property_id) {
+    $query_feedback = "SELECT rating, feedback FROM feedback WHERE rental_id = :rental_id";
+    $stmt_feedback = $pdo->prepare($query_feedback);
+    $stmt_feedback->bindValue(':rental_id', $property_id);
+    $stmt_feedback->execute();
+    return $stmt_feedback->fetchAll(PDO::FETCH_ASSOC);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -68,12 +77,16 @@ $removed_properties = $stmt_removed->fetchAll(PDO::FETCH_ASSOC);
                         // Split the stored image string to get individual image URLs
                         $images = explode(',', $property['images']);
                         $random_image = $images[array_rand($images)];
+
+                        // Fetch feedback for the current property
+                        $feedback = fetchFeedbackAndRating($pdo, $property['id']);
                         ?>
                         <div class="property-card" onclick="openModal(<?php echo $property['id']; ?>)">
                             <img src="../<?php echo $random_image; ?>" alt="Property Image">
                             <h3><?php echo htmlspecialchars($property['title']); ?></h3>
                             <p><?php echo htmlspecialchars($property['city']); ?>, <?php echo htmlspecialchars($property['district']); ?></p>
                             <p>Rent: Rs.<?php echo number_format($property['price'], 2); ?></p>
+                            <p>Rating: <?php echo $property['rating'] > 0 ? number_format($property['rating'], 2) : 'No ratings yet'; ?>/5</p>
                             <div class="property-actions">
                                 <button class="toggle-status-btn <?php echo $property['is_active'] ? 'btn-deactivate' : 'btn-activate'; ?>" 
                                         onclick="toggleStatus(<?php echo $property['id']; ?>, <?php echo $property['is_active'] ? 1 : 0; ?>)">
@@ -114,6 +127,21 @@ $removed_properties = $stmt_removed->fetchAll(PDO::FETCH_ASSOC);
                                 <p><strong>Proximity to Road:</strong> <?php echo htmlspecialchars($property['proximity_to_road']); ?></p>
                                 <p><strong>WhatsApp Contact:</strong> <?php echo htmlspecialchars($property['contact_whatsapp']); ?></p>
                                 <p><strong>Description:</strong> <?php echo htmlspecialchars($property['description']); ?></p>
+                                <p><strong>Average Rating:</strong> <?php echo $property['rating'] > 0 ? number_format($property['rating'], 2) : 'No ratings yet'; ?> /5</p>
+                                <!-- Feedback Section -->
+                                <h3>Feedback</h3>
+                                <div class="feedback-container">
+                                    <?php if (empty($feedback)): ?>
+                                        <p>No feedback yet.</p>
+                                    <?php else: ?>
+                                        <?php foreach ($feedback as $fb): ?>
+                                            <div class="feedback-item">
+                                                <strong>Rating:</strong> <?php echo $fb['rating']; ?>/5<br>
+                                                <strong>Comment:</strong> <?php echo htmlspecialchars($fb['feedback']); ?>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -131,12 +159,16 @@ $removed_properties = $stmt_removed->fetchAll(PDO::FETCH_ASSOC);
                         // Split the stored image string to get individual image URLs
                         $images = explode(',', $property['images']);
                         $random_image = $images[array_rand($images)];
+
+                        // Fetch feedback for the current property
+                        $feedback = fetchFeedbackAndRating($pdo, $property['id']);
                         ?>
                         <div class="property-card" onclick="openModal(<?php echo $property['id']; ?>)">
                             <img src="../<?php echo $random_image; ?>" alt="Property Image">
                             <h3><?php echo htmlspecialchars($property['title']); ?></h3>
                             <p><?php echo htmlspecialchars($property['city']); ?>, <?php echo htmlspecialchars($property['district']); ?></p>
                             <p>Rent: Rs.<?php echo number_format($property['price'], 2); ?></p>
+                            <p>Rating: <?php echo $property['rating'] > 0 ? number_format($property['rating'], 2) : 'No ratings yet'; ?>/5</p>
                             <div class="property-actions">
                                 <button class="toggle-status-btn <?php echo $property['is_active'] ? 'btn-deactivate' : 'btn-activate'; ?>" 
                                         onclick="toggleStatus(<?php echo $property['id']; ?>, <?php echo $property['is_active'] ? 1 : 0; ?>)">
@@ -177,6 +209,21 @@ $removed_properties = $stmt_removed->fetchAll(PDO::FETCH_ASSOC);
                                 <p><strong>Proximity to Road:</strong> <?php echo htmlspecialchars($property['proximity_to_road']); ?></p>
                                 <p><strong>WhatsApp Contact:</strong> <?php echo htmlspecialchars($property['contact_whatsapp']); ?></p>
                                 <p><strong>Description:</strong> <?php echo htmlspecialchars($property['description']); ?></p>
+                                <p><strong>Rating:</strong> <?php echo $property['rating'] > 0 ? number_format($property['rating'], 2) : 'No ratings yet'; ?> /5</p>
+                                <!-- Feedback Section -->
+                                <h3>Feedback</h3>
+                                <div class="feedback-container">
+                                    <?php if (empty($feedback)): ?>
+                                        <p>No feedback yet.</p>
+                                    <?php else: ?>
+                                        <?php foreach ($feedback as $fb): ?>
+                                            <div class="feedback-item">
+                                                <strong>Rating:</strong> <?php echo $fb['rating']; ?>/5<br>
+                                                <strong>Comment:</strong> <?php echo htmlspecialchars($fb['feedback']); ?>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -194,12 +241,16 @@ $removed_properties = $stmt_removed->fetchAll(PDO::FETCH_ASSOC);
                         // Split the stored image string to get individual image URLs
                         $images = explode(',', $property['images']);
                         $random_image = $images[array_rand($images)];
+
+                        // Fetch feedback for the current property
+                        $feedback = fetchFeedbackAndRating($pdo, $property['id']);
                         ?>
                         <div class="property-card" onclick="openModal(<?php echo $property['id']; ?>)">
                             <img src="../<?php echo $random_image; ?>" alt="Property Image">
                             <h3><?php echo htmlspecialchars($property['title']); ?></h3>
                             <p><?php echo htmlspecialchars($property['city']); ?>, <?php echo htmlspecialchars($property['district']); ?></p>
                             <p>Rent: Rs.<?php echo number_format($property['price'], 2); ?></p>
+                            <p>Rating: <?php echo $property['rating'] > 0 ? number_format($property['rating'], 2) : 'No ratings yet'; ?>/5</p>
                             <p><strong>Status:</strong> Removed by Admin</p>
                         </div>
 
@@ -235,6 +286,21 @@ $removed_properties = $stmt_removed->fetchAll(PDO::FETCH_ASSOC);
                                 <p><strong>Proximity to Road:</strong> <?php echo htmlspecialchars($property['proximity_to_road']); ?></p>
                                 <p><strong>WhatsApp Contact:</strong> <?php echo htmlspecialchars($property['contact_whatsapp']); ?></p>
                                 <p><strong>Description:</strong> <?php echo htmlspecialchars($property['description']); ?></p>
+                                <p><strong>Rating:</strong> <?php echo $property['rating'] > 0 ? number_format($property['rating'], 2) : 'No ratings yet'; ?> /5</p>
+                                <!-- Feedback Section -->
+                                <h3>Feedback</h3>
+                                <div class="feedback-container">
+                                    <?php if (empty($feedback)): ?>
+                                        <p>No feedback yet.</p>
+                                    <?php else: ?>
+                                        <?php foreach ($feedback as $fb): ?>
+                                            <div class="feedback-item">
+                                                <strong>Rating:</strong> <?php echo $fb['rating']; ?>/5<br>
+                                                <strong>Comment:</strong> <?php echo htmlspecialchars($fb['feedback']); ?>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                         
