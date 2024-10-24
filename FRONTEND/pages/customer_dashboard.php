@@ -26,8 +26,16 @@ $minPrice = isset($_GET['min_price']) && is_numeric($_GET['min_price']) ? (int)$
 $maxPrice = isset($_GET['max_price']) && is_numeric($_GET['max_price']) ? (int)$_GET['max_price'] : null;
 $minRating = isset($_GET['rating']) && is_numeric($_GET['rating']) ? (int)$_GET['rating'] : null;
 
-// Build dynamic query
-$query_active = "SELECT * FROM rentals WHERE is_active = 1 AND removed_by_admin = 0";
+// Build the query to fetch active properties with average ratings
+$query_active = "
+    SELECT rentals.*, 
+    COALESCE((
+        SELECT AVG(feedback.rating) 
+        FROM feedback 
+        WHERE feedback.rental_id = rentals.id
+    ), 0) AS avg_rating 
+    FROM rentals 
+    WHERE is_active = 1 AND removed_by_admin = 0";
 $conditions = [];
 $params = [];
 
@@ -154,7 +162,7 @@ if (!$isGuest) {
                             <h3><?php echo htmlspecialchars($property['title']); ?></h3>
                             <p><?php echo htmlspecialchars($property['city']); ?>, <?php echo htmlspecialchars($property['district']); ?></p>
                             <p>Rent: Rs.<?php echo number_format($property['price'], 2); ?></p>
-                            <p>Rating: <?php echo $property['rating'] ? number_format($property['rating'], 2) : 'No ratings yet'; ?>/5</p>
+                            <p>Rating: <?php echo $property['avg_rating'] > 0 ? number_format($property['avg_rating'], 2) : 'No ratings yet'; ?>/5</p>
                         </div>
 
                         <!-- Modal for Property Details -->

@@ -14,13 +14,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $feedback = $_POST['feedback'];
 
     try {
-        // Insert feedback into the database
+       // Insert feedback into the database
         $stmt = $pdo->prepare("INSERT INTO feedback (customer_id, rental_id, rating, feedback) VALUES (?, ?, ?, ?)");
         $stmt->execute([$customer_id, $rental_id, $rating, $feedback]);
 
         // Update the average rating for the property
-        $stmt_avg = $pdo->prepare("UPDATE rentals r 
-            SET r.rating = (SELECT AVG(f.rating) FROM feedback f WHERE f.rental_id = ?)
+        $stmt_avg = $pdo->prepare("
+            UPDATE rentals r 
+            SET r.rating = (
+                SELECT AVG(f.rating) 
+                FROM feedback f 
+                WHERE f.rental_id = ?
+            )
             WHERE r.id = ?");
         $stmt_avg->execute([$rental_id, $rental_id]);
 
