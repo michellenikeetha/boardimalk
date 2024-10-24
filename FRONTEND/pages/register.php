@@ -64,6 +64,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../CSS/register.css">
 </head>
 <body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1><a href="index.html">බෝඩිම.LK</a></h1>
+        </div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#featured">About</a>
+            <a href="#landlords">Services</a>
+            <a href="customer_dashboard.php">Listings</a>
+        </nav>
+        <div class="cta-buttons">
+            <a href="register.php"><button class="btn-secondary">Register</button></a>
+            <a href="login.php"><button class="btn-primary">Login</button></a>
+        </div>
+    </header>
+    
     <div class="register-container">
         <h2>Register for බෝඩිම.LK</h2>
         <?php if ($error): ?>
