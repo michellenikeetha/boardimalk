@@ -84,6 +84,14 @@ if (!$isGuest) {
                 </div>
             </div>
 
+            <div class="notifications">
+                <?php if (isset($_GET['feedback_submitted']) && $_GET['feedback_submitted'] == 1): ?>
+                    <div class="success-msg">Thank you! Your feedback has been submitted successfully.</div>
+                <?php elseif (isset($_GET['error']) && $_GET['error'] == 1): ?>
+                    <div class="error-msg">Oops! There was an issue submitting your feedback. Please try again.</div>
+                <?php endif; ?>
+            </div>
+
             <!-- Active Listings Section -->
             <?php if (empty($active_properties)): ?>
                 <p>No available properties at the moment.</p>

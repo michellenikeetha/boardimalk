@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../FRONTEND/pages/customer_dashboard.php?feedback_submitted=1');
     } catch (PDOException $e) {
         error_log("Database Error: " . $e->getMessage());
-        header('Location: customer_dashboard.php?error=1');
+        header('Location: ../FRONTEND/pages/customer_dashboard.php?error=1');
     }
 }
 ?>
