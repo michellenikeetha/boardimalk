@@ -20,10 +20,51 @@ if (!$isGuest && $role !== 'customer') {
     exit();
 }
 
-// Fetch all active properties
+// Get search and filter inputs
+$searchQuery = isset($_GET['search']) ? trim($_GET['search']) : '';
+$minPrice = isset($_GET['min_price']) && is_numeric($_GET['min_price']) ? (int)$_GET['min_price'] : null;
+$maxPrice = isset($_GET['max_price']) && is_numeric($_GET['max_price']) ? (int)$_GET['max_price'] : null;
+$minRating = isset($_GET['rating']) && is_numeric($_GET['rating']) ? (int)$_GET['rating'] : null;
+
+// Build dynamic query
 $query_active = "SELECT * FROM rentals WHERE is_active = 1 AND removed_by_admin = 0";
+$conditions = [];
+$params = [];
+
+// If a search query is provided, add it to the conditions
+if (!empty($searchQuery)) {
+    $conditions[] = "(title LIKE ? OR city LIKE ? OR district LIKE ?)";
+    $params[] = "%$searchQuery%";
+    $params[] = "%$searchQuery%";
+    $params[] = "%$searchQuery%";
+}
+
+// If a minimum price is provided, add it to the conditions
+if ($minPrice !== null) {
+    $conditions[] = "price >= ?";
+    $params[] = $minPrice;
+}
+
+// If a maximum price is provided, add it to the conditions
+if ($maxPrice !== null) {
+    $conditions[] = "price <= ?";
+    $params[] = $maxPrice;
+}
+
+// If a minimum rating is provided, add it to the conditions
+if ($minRating !== null) {
+    $conditions[] = "rating >= ?";
+    $params[] = $minRating;
+}
+
+// Add the conditions to the query if there are any
+if (!empty($conditions)) {
+    $query_active .= " AND " . implode(" AND ", $conditions);
+}
+
+// Prepare and execute the query
 $stmt_active = $pdo->prepare($query_active);
-$stmt_active->execute();
+$stmt_active->execute($params);
 $active_properties = $stmt_active->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch saved properties count for logged-in users
