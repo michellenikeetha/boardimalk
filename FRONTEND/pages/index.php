@@ -1,9 +1,13 @@
+<?php
+    session_start(); 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>බෝඩිම.LK - Find Your Perfect Boarding</title>
+    <title>BodimBuddy.LK - Find Your Perfect Boarding</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <link rel="stylesheet" href="../CSS/styles.css">
     <link rel="stylesheet" href="../CSS/landingpage.css">
@@ -12,17 +16,22 @@
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <h1>බෝඩිම.LK</h1>
+            <!-- <h1>බෝඩිම.LK</h1> -->
+            <img src="../../RESOURCES/logos-04.png" alt="Logo">
         </div>
         <nav>
             <a href="#home">Home</a>
-            <a href="#featured">About</a>
-            <a href="#landlords">Services</a>
+            <a href="about.php">About</a>
+            <a href="services.php">Services</a>
             <a href="customer_dashboard.php">Listings</a>
         </nav>
         <div class="cta-buttons">
-            <a href="register.php"><button class="btn-secondary">Register</button></a>
-            <a href="login.php"><button class="btn-primary">Login</button></a>
+            <?php if (isset($_SESSION['loggedin']) && $_SESSION['role'] === 'renter'): ?>
+                <a href="renter_dashboard.php"><button class="btn-primary">Post Your Ad</button></a>
+            <?php else: ?>
+                <a href="register.php"><button class="btn-secondary">Register</button></a>
+                <a href="login.php"><button class="btn-primary">Login</button></a>
+            <?php endif; ?>
         </div>
     </header>
 
@@ -30,7 +39,7 @@
     <section id="home" class="hero-section">
         <div class="text">
             <h1>Find Your Perfect Boarding</h1>
-            <p>Welcome to බෝඩිම.LK, your premier platform to discover a wide range of exceptional boarding rentals tailored to your needs.</p>
+            <p>Welcome to BodimBuddy.LK, your premier platform to discover a wide range of exceptional boarding rentals tailored to your needs.</p>
             <div class="cta-buttons">
                 <!-- <button class="btn-primary">Book Now</button> -->
                 <a href="customer_dashboard.php"><button class="btn-secondary">Explore Listings</button></a>
@@ -59,9 +68,13 @@
     <!-- Invite Landlords Section -->
     <section id="landlords" class="invite-landlords">
         <h2>Are You a Landlord?</h2>
-        <p>Post your boarding rentals on our platform and reach thousands of potential tenants. With බෝඩිම.LK, you can manage your listings effortlessly and connect with renters quickly.</p>
+        <p>Post your boarding rentals on our platform and reach thousands of potential tenants. With BodimBuddy.LK, you can manage your listings effortlessly and connect with renters quickly.</p>
         <div class="cta-buttons">
-            <a href="register.php"><button class="btn-primary">Post Your Listing</button></a>
+            <?php if (isset($_SESSION['loggedin']) && $_SESSION['role'] === 'renter'): ?>
+                <a href="renter_dashboard.php"><button class="btn-primary">Post Your Ad</button></a>
+            <?php else: ?>
+                <a href="register.php"><button class="btn-secondary">Post Your Ad</button></a>
+            <?php endif; ?>
             <a href="termsofservice.php"><button class="btn-secondary">Learn More</button></a>
         </div>
     </section>
@@ -71,25 +84,24 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Connect with Us</h4>
-                <a href="#email">Email Us | </a>
-                <a href="#visit">Visit Us | </a>
-                <a href="#book">Book Now</a>
+                <a href="mailto:bodimbuddy.lk@gmail.com">bodimbuddy.lk@gmail.com</a><br/>
+                <a href="tel:+94755009920">0755009920</a>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
-                <a href="#featured">About Us | </a>
-                <!-- <a href="#faq">FAQ</a> -->
+                <a href="about.php">About Us | </a>
+                <a href="membership-packages.php">Membership | </a>
                 <a href="termsofservice.php">Terms of Service</a>
             </div>
             <div class="footer-section">
                 <h4>Follow Us</h4>
-                <a href="#facebook">Facebook | </a>
-                <a href="#instagram">Instagram | </a>
-                <a href="#twitter">Twitter</a>
+                <a href="https://web.facebook.com/BodimBuddy">Facebook | </a>
+                <a href="https://www.instagram.com/bodim_buddy.lk?igsh=MzRlODBiNWFlZA==">Instagram </a>
+                <!-- <a href="#twitter">Twitter</a> -->
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 බෝඩිම.LK. All rights reserved.</p>
+            <p>&copy; 2024 BodimBuddy.LK. All rights reserved.</p>
         </div>
     </footer>
 </body>

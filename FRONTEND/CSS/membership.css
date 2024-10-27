@@ -1,0 +1,80 @@
+.membership-page {
+    width: 80%;
+    margin: 0 auto;
+    padding: 50px 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.package {
+    background-color: #333;
+    border: 1px solid #444;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+/* Bronze, Silver, and Gold Styling */
+.bronze {
+    border-left: 10px solid #CE8946;
+}
+
+.silver {
+    border-left: 10px solid #c0c0c0;
+}
+
+.gold {
+    border-left: 10px solid #ffd700;
+}
+
+.package h2 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.package ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.package li {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+}
+
+/* Buy Now Button */
+.buynow-button {
+    margin-top: 20px;
+}
+
+.btn-buy {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s;
+}
+
+.btn-buy:hover {
+    background-color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .membership-page {
+        width: 90%;
+    }
+}

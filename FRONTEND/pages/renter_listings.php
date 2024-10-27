@@ -48,14 +48,14 @@ function fetchFeedbackAndRating($pdo, $property_id) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Listings - බෝඩිම.LK</title>
+    <title>My Listings - BodimBuddy.LK</title>
     <link rel="stylesheet" href="../CSS/styles.css">
     <link rel="stylesheet" href="../CSS/renter_dashboard.css">
     <link rel="stylesheet" href="../CSS/renter_listings.css"> 
 </head>
 <body>
     <nav class="dashboard-nav">
-        <div class="nav-brand"><a href="index.html">බෝඩිම.LK</a></div>
+        <div class="nav-brand"><a href="renter_dashboard.php"><!-- <h1>බෝඩිම.LK</h1> --><img src="../../RESOURCES/logos-02.png" alt="Logo"></a></div>
         <div class="nav-items">
             <span>Welcome, <?php echo htmlspecialchars($username); ?></span>
             <a href="../../BACKEND/logout.php" class="logout-btn">Logout</a>

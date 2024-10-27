@@ -21,10 +21,10 @@ if (!$isGuest && $role !== 'customer') {
 }
 
 // Get search and filter inputs
-$searchQuery = isset($_GET['search']) ? trim($_GET['search']) : '';
+$district = isset($_GET['district']) ? trim($_GET['district']) : '';
 $minPrice = isset($_GET['min_price']) && is_numeric($_GET['min_price']) ? (int)$_GET['min_price'] : null;
 $maxPrice = isset($_GET['max_price']) && is_numeric($_GET['max_price']) ? (int)$_GET['max_price'] : null;
-$minRating = isset($_GET['rating']) && is_numeric($_GET['rating']) ? (int)$_GET['rating'] : null;
+$numRooms = isset($_GET['rooms']) && is_numeric($_GET['rooms']) ? (int)$_GET['rooms'] : null;
 
 // Build the query to fetch active properties with average ratings
 $query_active = "
@@ -47,6 +47,12 @@ if (!empty($searchQuery)) {
     $params[] = "%$searchQuery%";
 }
 
+// If a district is selected, add it to the conditions
+if (!empty($district)) {
+    $conditions[] = "district = ?";
+    $params[] = $district;
+}
+
 // If a minimum price is provided, add it to the conditions
 if ($minPrice !== null) {
     $conditions[] = "price >= ?";
@@ -59,10 +65,10 @@ if ($maxPrice !== null) {
     $params[] = $maxPrice;
 }
 
-// If a minimum rating is provided, add it to the conditions
-if ($minRating !== null) {
-    $conditions[] = "rating >= ?";
-    $params[] = $minRating;
+// If a number of rooms is provided, add it to the conditions
+if ($numRooms !== null) {
+    $conditions[] = "rooms = ?";
+    $params[] = $numRooms;
 }
 
 // Add the conditions to the query if there are any
@@ -93,14 +99,15 @@ if (!$isGuest) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Dashboard - බෝඩිම.LK</title>
+    <title>Customer Dashboard - BodimBuddy.LK</title>
     <link rel="stylesheet" href="../CSS/styles.css">
     <link rel="stylesheet" href="../CSS/customer_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
     <nav class="dashboard-nav">
-        <div class="nav-brand"><a href="index.html">බෝඩිම.LK</a></div>
+        <div class="nav-brand"><a href="index.php"><!-- <h1>බෝඩිම.LK</h1> --><img src="../../RESOURCES/logos-02.png" alt="Logo"></a></div>
         <div class="nav-items">
             <?php if ($isGuest): ?>
                 <span>Welcome, Guest!</span>
@@ -118,25 +125,40 @@ if (!$isGuest) {
 
             <div class="search-bar">
                 <form action="customer_dashboard.php" method="GET">
-                    <input type="text" name="search" placeholder="Search by title or location" value="<?php echo htmlspecialchars($searchQuery); ?>">
+                    <select name="district">
+                        <option value="">Select District</option>
+                        <option value="Ampara" <?php echo $district === 'Ampara' ? 'selected' : ''; ?>>Ampara</option>
+                        <option value="Anuradhapura" <?php echo $district === 'Anuradhapura' ? 'selected' : ''; ?>>Anuradhapura</option>
+                        <option value="Badulla" <?php echo $district === 'Badulla' ? 'selected' : ''; ?>>Badulla</option>
+                        <option value="Batticaloa" <?php echo $district === 'Batticaloa' ? 'selected' : ''; ?>>Batticaloa</option>
+                        <option value="Colombo" <?php echo $district === 'Colombo' ? 'selected' : ''; ?>>Colombo</option>
+                        <option value="Galle" <?php echo $district === 'Galle' ? 'selected' : ''; ?>>Galle</option>
+                        <option value="Gampaha" <?php echo $district === 'Gampaha' ? 'selected' : ''; ?>>Gampaha</option>
+                        <option value="Hambantota" <?php echo $district === 'Hambantota' ? 'selected' : ''; ?>>Hambantota</option>
+                        <option value="Jaffna" <?php echo $district === 'Jaffna' ? 'selected' : ''; ?>>Jaffna</option>
+                        <option value="Kalutara" <?php echo $district === 'Kalutara' ? 'selected' : ''; ?>>Kalutara</option>
+                        <option value="Kandy" <?php echo $district === 'Kandy' ? 'selected' : ''; ?>>Kandy</option>
+                        <option value="Kegalle" <?php echo $district === 'Kegalle' ? 'selected' : ''; ?>>Kegalle</option>
+                        <option value="Kilinochchi" <?php echo $district === 'Kilinochchi' ? 'selected' : ''; ?>>Kilinochchi</option>
+                        <option value="Kurunegala" <?php echo $district === 'Kurunegala' ? 'selected' : ''; ?>>Kurunegala</option>
+                        <option value="Mannar" <?php echo $district === 'Mannar' ? 'selected' : ''; ?>>Mannar</option>
+                        <option value="Matale" <?php echo $district === 'Matale' ? 'selected' : ''; ?>>Matale</option>
+                        <option value="Matara" <?php echo $district === 'Matara' ? 'selected' : ''; ?>>Matara</option>
+                        <option value="Moneragala" <?php echo $district === 'Moneragala' ? 'selected' : ''; ?>>Moneragala</option>
+                        <option value="Mullaitivu" <?php echo $district === 'Mullaitivu' ? 'selected' : ''; ?>>Mullaitivu</option>
+                        <option value="Nuwara Eliya" <?php echo $district === 'Nuwara Eliya' ? 'selected' : ''; ?>>Nuwara Eliya</option>
+                        <option value="Polonnaruwa" <?php echo $district === 'Polonnaruwa' ? 'selected' : ''; ?>>Polonnaruwa</option>
+                        <option value="Puttalam" <?php echo $district === 'Puttalam' ? 'selected' : ''; ?>>Puttalam</option>
+                        <option value="Ratnapura" <?php echo $district === 'Ratnapura' ? 'selected' : ''; ?>>Ratnapura</option>
+                        <option value="Trincomalee" <?php echo $district === 'Trincomalee' ? 'selected' : ''; ?>>Trincomalee</option>
+                        <option value="Vavuniya" <?php echo $district === 'Vavuniya' ? 'selected' : ''; ?>>Vavuniya</option>
+                   </select>
                     <input type="number" name="min_price" placeholder="Min Price" value="<?php echo isset($_GET['min_price']) ? $_GET['min_price'] : ''; ?>">
                     <input type="number" name="max_price" placeholder="Max Price" value="<?php echo isset($_GET['max_price']) ? $_GET['max_price'] : ''; ?>">
-                    <input type="number" name="rating" placeholder="Minimum Rating" value="<?php echo isset($_GET['rating']) ? $_GET['rating'] : ''; ?>">
+                    <input type="number" name="rooms" placeholder="Number of Bedrooms" value="<?php echo isset($_GET['rooms']) ? $_GET['rooms'] : ''; ?>">
                     <button type="submit">Search</button>
                 </form>
             </div>
-
-            <!-- <div class="dashboard-stats">
-                <a href="<?php echo $isGuest ? 'login.php' : 'saved_properties.php'; ?>" class="stat-card-link">
-                    <div class="stat-card">
-                        <div class="stat-icon">💾</div>
-                        <div class="stat-info">
-                            <h3>Saved Properties</h3>
-                            <p><?php echo $isGuest ? 'Login to view' : $savedProperties; ?></p>
-                        </div>
-                    </div>
-                </a>
-            </div> -->
 
             <div class="notifications">
                 <?php if (isset($_GET['feedback_submitted']) && $_GET['feedback_submitted'] == 1): ?>
@@ -157,13 +179,37 @@ if (!$isGuest) {
                         $images = explode(',', $property['images']);
                         $random_image = $images[array_rand($images)];
                         ?>
-                        <div class="property-card" onclick="openModal(<?php echo $property['id']; ?>)">
-                            <img src="../<?php echo $random_image; ?>" alt="Property Image">
-                            <h3><?php echo htmlspecialchars($property['title']); ?></h3>
-                            <p><?php echo htmlspecialchars($property['city']); ?>, <?php echo htmlspecialchars($property['district']); ?></p>
-                            <p>Rent: Rs.<?php echo number_format($property['price'], 2); ?></p>
-                            <p>Rating: <?php echo $property['avg_rating'] > 0 ? number_format($property['avg_rating'], 2) : 'No ratings yet'; ?>/5</p>
-                        </div>
+
+                        <a href="property_details.php?id=<?php echo $property['id']; ?>" class="property-card">
+                            <img src="../<?php echo $random_image; ?>" alt="Property Image" class="property-image">
+                            <div class="property-details-card">
+                                <h3 class="property-title"><?php echo htmlspecialchars($property['title']); ?></h3>
+                                <p class="property-location">
+                                    <i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($property['city']); ?>, <?php echo htmlspecialchars($property['district']); ?>
+                                </p>
+                                <p class="property-price">Rs. <?php echo number_format($property['price'], 2); ?></p>
+                                <div class="property-rating">
+                                    <?php
+                                    $rating = $property['avg_rating'];
+                                    $fullStars = floor($rating);
+                                    $halfStar = $rating - $fullStars >= 0.5 ? 1 : 0;
+                                    $emptyStars = 5 - $fullStars - $halfStar;
+
+                                    for ($i = 0; $i < $fullStars; $i++) {
+                                        echo '<i class="fas fa-star"></i>';
+                                    }
+                                    if ($halfStar) {
+                                        echo '<i class="fas fa-star-half-alt"></i>';
+                                    }
+                                    for ($i = 0; $i < $emptyStars; $i++) {
+                                        echo '<i class="far fa-star"></i>';
+                                    }
+                                    ?>
+                                    <span>(<?php echo $property['avg_rating'] > 0 ? number_format($property['avg_rating'], 1) : '0'; ?>)</span>
+                                </div>
+                                <p class="property-features"><?php echo $property['rooms']; ?> bedrooms • <?php echo $property['bathrooms']; ?> bathrooms</p>
+                            </div>
+                        </a>
 
                         <!-- Modal for Property Details -->
                         <div id="modal-<?php echo $property['id']; ?>" class="modal">

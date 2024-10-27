@@ -18,6 +18,10 @@
     color: var(--white-color);
 }
 
+.nav-brand img{
+    width: 200px;
+}
+
 .nav-items {
     display: flex;
     align-items: center;
@@ -64,7 +68,7 @@
     justify-content: center;
 }
 
-.search-bar input {
+.search-bar input , select{
     padding: 0.75rem;
     border-radius: 8px;
     border: 1px solid var(--primary-color);
@@ -170,13 +174,68 @@
 
 .property-card h3 {
     font-size: 1.25rem;
-    margin: 1rem;
+    /* margin: 1rem; */
     color: var(--primary-color);
 }
 
-.property-card p {
+/* .property-card p {
     margin: 0.5rem 1rem;
     color: var(--text-secondary-color);
+} */
+
+.property-details-card {
+    padding: 15px;
+}
+
+/* .property-title {
+    font-size: 1.2em;
+    color: #333;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+} */
+
+.property-location {
+    color: #2ecc71;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.property-location i {
+    color: #2ecc71;
+}
+
+.property-price {
+    color: #e74c3c;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.property-rating {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    color: #f1c40f;
+}
+
+.property-rating i {
+    font-size: 1em;
+}
+
+.property-rating span {
+    color: #333;
+    font-size: 0.9em;
+    margin-left: 5px;
+}
+
+.property-features {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 8px;
 }
 
 /* Modal Styles */

@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username']; // Store username in session
             $_SESSION['role'] = $user['role'];
+            $_SESSION['loggedin'] = true;
             
             // Redirect based on role
             switch($user['role']) {
@@ -47,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - බෝඩිම.LK</title>
+    <title>Login - BodimBuddy.LK</title>
     <link rel="stylesheet" href="../CSS/styles.css">
     <link rel="stylesheet" href="../CSS/login.css">
 </head>
@@ -56,12 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <h1><a href="index.html">බෝඩිම.LK</a></h1>
+            <h1><a href="index.php"><!-- <h1>බෝඩිම.LK</h1> --><img src="../../RESOURCES/logos-04.png" alt="Logo"></a></h1>
         </div>
         <nav>
-            <a href="#home">Home</a>
-            <a href="#featured">About</a>
-            <a href="#landlords">Services</a>
+            <a href="index.php#home">Home</a>
+            <a href="about.php">About</a>
+            <a href="services.php">Services</a>
             <a href="customer_dashboard.php">Listings</a>
         </nav>
         <div class="cta-buttons">
@@ -71,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </header>
 
     <div class="login-container">
-        <h2>Login to බෝඩිම.LK</h2>
+        <h2>Login to BodimBuddy.LK</h2>
         <?php if ($error): ?>
             <p class="error-message"><?php echo $error; ?></p>
         <?php endif; ?>
@@ -99,25 +100,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Connect with Us</h4>
-                <a href="#email">Email Us</a>
-                <a href="#visit">Visit Us</a>
-                <a href="#book">Book Now</a>
+                <a href="mailto:bodimbuddy.lk@gmail.com">bodimbuddy.lk@gmail.com</a><br/>
+                <a href="tel:+94755009920">0755009920</a>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
-                <a href="#about">About Us</a>
-                <a href="#faq">FAQ</a>
-                <a href="#terms">Terms of Service</a>
+                <a href="about.php">About Us | </a>
+                <a href="membership-packages.php">Membership | </a>
+                <a href="termsofservice.php">Terms of Service</a>
             </div>
             <div class="footer-section">
                 <h4>Follow Us</h4>
-                <a href="#facebook">Facebook</a>
-                <a href="#instagram">Instagram</a>
-                <a href="#twitter">Twitter</a>
+                <a href="https://web.facebook.com/BodimBuddy">Facebook | </a>
+                <a href="https://www.instagram.com/bodim_buddy.lk?igsh=MzRlODBiNWFlZA==">Instagram </a>
+                <!-- <a href="#twitter">Twitter</a> -->
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 බෝඩිම.LK. All rights reserved.</p>
+            <p>&copy; 2024 BodimBuddy.LK. All rights reserved.</p>
         </div>
     </footer>
 </body>

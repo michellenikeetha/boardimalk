@@ -26,13 +26,13 @@ $total_customers = $stmt_customers->fetchColumn();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - බෝඩිම.LK</title>
+    <title>Admin Dashboard - BodimBuddy.LK</title>
     <link rel="stylesheet" href="../CSS/styles.css">
     <link rel="stylesheet" href="../CSS/admin_dashboard.css">
 </head>
 <body>
     <nav class="dashboard-nav">
-        <div class="nav-brand"><a href="index.html">බෝඩිම.LK</a></div>
+        <div class="nav-brand"><a href="index.php"><!-- <h1>බෝඩිම.LK</h1> --><img src="../../RESOURCES/logos-02.png" alt="Logo"></a></div>
         <div class="nav-items">
             <span>Welcome, <?php echo htmlspecialchars($username); ?></span>
             <a href="../../BACKEND/logout.php" class="logout-btn">Logout</a>

@@ -18,6 +18,10 @@
     color: var(--white-color);
 }
 
+.nav-brand img{
+    width: 200px;
+}
+
 .nav-items {
     display: flex;
     align-items: center;

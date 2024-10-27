@@ -21,13 +21,13 @@ $properties = $stmt_properties->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Listings - බෝඩිම.LK</title>
+    <title>Admin Listings - BodimBuddy.LK</title>
     <link rel="stylesheet" href="../CSS/styles.css">
     <link rel="stylesheet" href="../CSS/admin_listings.css">
 </head>
 <body>
     <nav class="dashboard-nav">
-        <div class="nav-brand"><a href="index.html">බෝඩිම.LK</a></div>
+        <div class="nav-brand"><a href="admin_dashboard.php"><!-- <h1>බෝඩිම.LK</h1> --><img src="../../RESOURCES/logos-02.png" alt="Logo"></a></div>
         <div class="nav-items">
             <span>Welcome, Admin</span>
             <a href="../../BACKEND/logout.php" class="logout-btn">Logout</a>
