@@ -47,7 +47,7 @@
 
         <!-- Features Section -->
         <section class="features">
-            <h2>Features OF BodimBuddy</h2>
+            <h2>Features of BodimBuddy</h2>
             <div class="features-grid">
                 <div class="feature-box">
                     <img src="../../RESOURCES/search-icon.png" alt="Advanced Search Filters">
